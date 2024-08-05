@@ -30,10 +30,27 @@ const numberClickHandler = (value)=>{
         currentNumber += value
         updateUI(currentNumber)
 }
+const resetHandler = ()=>{
+    currentNumber = "";
+    storedNumber = "";
+    operation = "";
+    updateUI(currentNumber);
+}
 
 const keyElementHandler = (el)=>{
     el.addEventListener("click",()=>{
-        el.dataset.type === "number"&& numberClickHandler(el.dataset.value);
+        const type = el.dataset.type;
+        const value = el.dataset.value;
+
+        if(type === "number"){
+            numberClickHandler(value)
+        }else if( type === "operation"){
+            switch(value){
+                case "c":
+                    resetHandler();
+                    break;
+            }
+        }
     })
 }
 
