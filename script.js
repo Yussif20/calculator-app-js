@@ -106,3 +106,21 @@ const keyElementHandler = (el)=>{
 
 keyElements.forEach(keyElementHandler)
 
+// enable using keyboard 
+const availableNumbers = ['0','1','2','3','4','5','6','7','8','9','.'];
+const availableOperations = ['+','-','*','/']
+
+window.addEventListener("keydown",(event)=>{
+    const key = event.key
+    if(availableNumbers.includes(key)){
+        numberClickHandler(key)
+    }else if(availableOperations.includes(key)){
+        operationButtonHandler(key)
+    }else if (key === "Backspace"){
+        deleteHandler();
+    }else if(key === "Enter"){
+        executeOperation();
+    }
+
+
+})
