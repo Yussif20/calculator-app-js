@@ -36,8 +36,49 @@ const resetHandler = ()=>{
     operation = "";
     updateUI(currentNumber);
 }
+const deleteHandler = ()=>{
+    currentNumber = currentNumber === 0 || currentNumber.length === 1 ? "" : currentNumber.slice(0,currentNumber.length - 1);
+    updateUI(currentNumber);
+}
+const executeOperation =()=>{
+    if(currentNumber && storedNumber && operation){
+        switch(operation){
+            case "+":
+                storedNumber = parseFloat(storedNumber) + parseFloat(currentNumber);
+                break;
+            case "-":
+                storedNumber = parseFloat(storedNumber) - parseFloat(currentNumber);
+                break;
+            case "*":
+                storedNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
+                break;
+            case "/":
+                storedNumber = parseFloat(storedNumber) / parseFloat(currentNumber);
+                break;
+        }
+        currentNumber = "";
+        updateUI(storedNumber);
+    }
+}
+const operationButtonHandler =(operationValue)=>{
+    if(!currentNumber && !storedNumber) return;
+
+    if(currentNumber && !storedNumber){
+        storedNumber =currentNumber;
+        currentNumber = "";
+        operation = operationValue
+    }else if(storedNumber){
+        operation =operationValue
+        if(currentNumber)executeOperation()
+    }
+}
+
 
 const keyElementHandler = (el)=>{
+    el.addEventListener("keypress",(event)=>{
+        console.log(event)
+    })
+
     el.addEventListener("click",()=>{
         const type = el.dataset.type;
         const value = el.dataset.value;
@@ -49,6 +90,15 @@ const keyElementHandler = (el)=>{
                 case "c":
                     resetHandler();
                     break;
+                case "Backspace":
+                    deleteHandler();
+                    break;
+                case "Enter":
+                    executeOperation();
+                    break;
+                default:
+                    operationButtonHandler(value);
+          
             }
         }
     })
