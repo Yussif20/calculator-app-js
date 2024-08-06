@@ -33,7 +33,7 @@ Users should be able to:
 
 ### Links
 
-- Live Site URL: [https://yussif20.github.io/calculator-app-js/]
+-[Live version](https://yussif20.github.io/calculator-app-js/)
 
 ## My process
 
